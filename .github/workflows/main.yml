@@ -25,5 +25,14 @@ jobs:
         - name: Push Slack WebHook URL To SSM Parameter
           id: slack-webhook
           run: |
-               aws ssm put-parameter --name /nadcm/slack/webhook_url --type "String" --value ${{ secrets.WEBHOOK_URL }}
-          
+               aws ssm put-parameter --name /nadcm/slack/webhook_url --type "String" --value ${{ secrets.WEBHOOK_URL }} --overwrite
+        
+        - name: Push Spark API Key To SSM Parameter
+          id: slack-api-key
+          run: |
+               aws ssm put-parameter --name /nadcm/spark/api_key --type "String" --value ${{ secrets.API_KEY }} --overwrite
+        
+        - name: Push Spark URL To SSM Parameter
+          id: slack-url
+          run: |
+               aws ssm put-parameter --name /nadcm/spark/url --type "String" --value ${{ secrets.SPARK_URL }} --overwrite
