@@ -39,11 +39,8 @@ jobs:
     
     terraform-deployment:
         name: "Terraform Infrastructure Deployment"
+        needs: store-ssm-parameter
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                shell: bash
-                working-directory: ./terraform
         
         steps:
         - name: Checkout the repository
