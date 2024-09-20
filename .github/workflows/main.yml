@@ -5,15 +5,17 @@ on:
         branches:
         - main
 
+env:
+    TF_LOG: INFO
+    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
 jobs:
-    aws-cli-job:
+    store-ssm-parameter:
         runs-on: ubuntu-latest
 
         steps:
-        - name: Configure AWS credentials
-          uses: aws-actions/Configure-aws-credentials@v2
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-            aws-region: ap-south-1
+        - name: Install AWS CLI
+          run: sudo snap install aws-cli --classic
+          
