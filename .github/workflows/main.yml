@@ -10,12 +10,20 @@ env:
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    AWS_REGION: ap-south-1
 
 jobs:
     store-ssm-parameter:
         runs-on: ubuntu-latest
 
+        environment: nadcm
+
         steps:
         - name: Install AWS CLI
           run: sudo snap install aws-cli --classic
+        
+        - name: Push Slack WebHook URL To SSM Parameter
+          id: slack-webhook
+          run: |
+               aws ssm put-parameter --name /nadcm/slack/webhook_url --type "String" --value ${{ secrets.WEBHOOK_URL }}
           
