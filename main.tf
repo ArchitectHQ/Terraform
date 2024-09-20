@@ -19,3 +19,13 @@ module "demo" {
     spark_url   = data.aws_ssm_parameter.spark_url.value
   }
 }
+
+resource "null_resource" "clean_up" {
+  depends_on = [module.demo]
+  triggers = {
+    index = timestamp()
+  }
+  provisioner "local-exec" {
+    command = "rm ./source.zip"
+  }
+}

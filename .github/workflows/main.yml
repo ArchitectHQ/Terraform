@@ -1,0 +1,6 @@
+name: AWS SSM Parameter Workflow
+
+on:
+    push:
+        branches:
+        - main
